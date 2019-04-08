@@ -3,6 +3,7 @@
 ## Overview
 
 CatGame the cat game is a rogue like sidescroller.
+![alt text]()
 
 ## Recent updates/additions
 
@@ -27,3 +28,4 @@ What I mean is if you have 3 heights of ground and the 3rd cannot be reached wit
 - Make music for the background
 - Get Andrew to do the recording for the cats meow.
 - Fix buttons and make the cat easier to control (or leave it as is im lazy)
+- Since Androids newest update the bottom nav bar doesn't stay away. Need to fix. :( *shakes fist and yells* "androooiiiiid!"

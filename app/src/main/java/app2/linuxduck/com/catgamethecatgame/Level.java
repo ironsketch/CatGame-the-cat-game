@@ -75,8 +75,6 @@ public class Level {
         }
         for(int i = 0; i < designElementsAlwaysUpdateRepeat.size(); i++){
             if(designElementsAlwaysUpdateRepeat.get(i).getX() <  -designElementsAlwaysUpdateRepeat.get(i).getWidth() * 2){
-                Log.e("x", String.valueOf(designElementsAlwaysUpdateRepeat.get(i).getX()));
-                Log.e("negative placement", String.valueOf(designElementsAlwaysUpdateRepeat.get(i).getWidth()));
                 designElementsAlwaysUpdateRepeat.remove(i);
             }
         }
