@@ -3,7 +3,7 @@
 ## Overview
 
 CatGame the cat game is a rogue like sidescroller.
-![alt text]()
+![alt text](https://raw.githubusercontent.com/ironsketch/CatGame-the-cat-game/master/app/src/main/res/drawable/catgamethecatgamescreenshot.png)
 
 ## Recent updates/additions
 
