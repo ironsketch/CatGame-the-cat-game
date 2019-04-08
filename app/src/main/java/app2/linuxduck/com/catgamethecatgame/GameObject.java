@@ -109,9 +109,13 @@ public class GameObject {
     public int getX() {
         return x;
     }
+    public void changeX(int newX){x = newX;}
     public int getY() {
         return y;
     }
+    public void changeY(int newY){y = newY;}
+    public int getWidth(){return width;}
+    public int getHeight(){return height;}
     public void changeVelocityy(float newVelocityY){
         VELOCITYY = newVelocityY;
     }
@@ -152,4 +156,5 @@ public class GameObject {
     public void changeJumpStart(long newStart){jumpStart = newStart;}
     public long getJumpEnd(){return jumpEnd;}
     public void changeJumpEnd(long newEnd){jumpEnd = newEnd;}
+    public Bitmap getBitmap(){return bitmap;}
 }

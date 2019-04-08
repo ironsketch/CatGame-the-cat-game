@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -47,6 +48,7 @@ public class GameView extends SurfaceView implements Runnable{
 
     // Levels
     private ArrayList<Level> levels;
+    private int currentLevel;
 
     public GameView(Context context) {
         super(context);
@@ -72,7 +74,8 @@ public class GameView extends SurfaceView implements Runnable{
         surfaceHolder = getHolder();
         paint = new Paint();
 
-        levels = new MakeLevels().MakeLevels(context);
+        levels = new MakeLevels().MakeLevels(context, size);
+        currentLevel = 0;
     }
 
     @Override
@@ -87,42 +90,18 @@ public class GameView extends SurfaceView implements Runnable{
         }
     }
 
-    public ArrayList<Boolean> checkBounds(){
-        ArrayList<Boolean> bounds = new ArrayList<>();
-        boolean leftX = false;
-        boolean rightX = false;
-        boolean topY = false;
-        boolean bottomY = false;
-
-        // Checking leftX (Behind)
-        if(player.getX() <= 10){
-            leftX = true;
-        }
-
-        // Checking rightX (In front)
-        if(player.getX() > size.x * .75)
-            rightX = true;
-
-        // Checking topY (Above)
-
-        // Checking bottomY (Below)
-
-        bounds.add(leftX); bounds.add(rightX); bounds.add(topY); bounds.add(bottomY);
-        return bounds;
-    }
-
     private void update(){
-        ArrayList<Boolean> bounds = checkBounds();
+        ArrayList<Boolean> bounds = levels.get(currentLevel).getBounds(size, player);
         if(bounds.get(3)){
             player.changeGrounded(true);
         }
         // This update is for moving characters
         // if(Going Backward and Nothing blocking to the left and the player is walking
-        if(!player.getForward() && !bounds.get(0) && player.getWalking()) {
+        if(!player.getForward() && player.getWalking() && !bounds.get(0)) {
             player.changeVelocityx(-1);
             player.setRow(1);
         // else if(Walking forward and There is nothing ahead and the player is walking
-        } else if(player.getForward() && !bounds.get(1) && player.getWalking()){
+        } else if(player.getForward() && player.getWalking() && !bounds.get(1)){
             player.changeVelocityx(1);
             player.setRow(0);
         // else we aren't needing velocity forward or backward
@@ -145,6 +124,7 @@ public class GameView extends SurfaceView implements Runnable{
                 player.changeJumped(false);
             }
         }
+        levels.get(currentLevel).update(player, size);
         player.update();
     }
 
@@ -224,6 +204,8 @@ public class GameView extends SurfaceView implements Runnable{
             canvas = surfaceHolder.lockCanvas();
             // drawing a background color for canvas
             canvas.drawColor(Color.BLACK);
+            // Draw the level
+            levels.get(currentLevel).draw(canvas, paint);
             // Drawing movement buttons
             canvas.drawBitmap(forwardButtonBitmap, (size.x - forwardButtonBitmap.getWidth()),
                     (size.y - forwardButtonBitmap.getHeight()), paint);
