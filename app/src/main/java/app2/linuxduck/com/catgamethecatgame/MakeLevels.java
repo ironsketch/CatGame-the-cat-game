@@ -14,8 +14,14 @@ public class MakeLevels {
     // Level 1
     public Level level1;
     public ArrayList<GameObject> groundObjectsL1;
+
     public Bitmap groundL1;
     public GameObject groundGOL1;
+    public Bitmap ground2L1;
+    public GameObject ground2GOL1;
+    public Bitmap ground3L1;
+    public GameObject ground3GOL1;
+
     public ArrayList<GameObject> evilDoersL1;
     public Bitmap backgroundL1;
     public ArrayList<GameObjectBasic> alwaysUpdateL1;
@@ -29,9 +35,15 @@ public class MakeLevels {
 
         // Ground elements
         groundObjectsL1 = new ArrayList<>();
-        groundL1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.grass);
-        groundGOL1 = new GameObject(groundL1, groundL1.getWidth(), groundL1.getHeight() / 2,1,2,100,0);
+        groundL1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.grass3);
+        groundGOL1 = new GameObject(groundL1, groundL1.getWidth(), groundL1.getHeight() / 2,1,2,100,0, 2);
         groundObjectsL1.add(groundGOL1);
+        ground2L1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.grass4);
+        ground2GOL1 = new GameObject(ground2L1, ground2L1.getWidth(), ground2L1.getHeight() / 2, 1, 2, 100, 0, 3);
+        groundObjectsL1.add(ground2GOL1);
+        ground3L1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.grass5);
+        ground3GOL1 = new GameObject(ground3L1, ground3L1.getWidth(), ground3L1.getHeight() / 2, 1, 2, 100, 0, 4);
+        groundObjectsL1.add(ground3GOL1);
 
         // Evil Doers
         evilDoersL1 = new ArrayList<>();

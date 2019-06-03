@@ -59,7 +59,7 @@ public class GameView extends SurfaceView implements Runnable{
 
         // The primary Player
         playerBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.catwalk);
-        player = new GameObject(playerBitmap, 45, 45, 8, 2, 100, 10);
+        player = new GameObject(playerBitmap, 45, 45, 8, 2, 100, 10, 0);
 
         forwardButtonBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.forwardarrow);
         forwardX = size.x - forwardButtonBitmap.getWidth();

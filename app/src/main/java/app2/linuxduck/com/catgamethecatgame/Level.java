@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
+import android.util.Pair;
 
 import java.util.Random;
 
@@ -85,6 +86,7 @@ public class Level {
         }
 
         // Add enough ground to cover the playing field
+        int priority = 2;
         int tempX = (groundElementsRepeat.isEmpty()) ? 0 : groundElementsRepeat.get(groundElementsRepeat.size() - 1).getX() +
                 groundElementsRepeat.get(groundElementsRepeat.size() - 1).getWidth();
         if(!groundElements.isEmpty()) {
@@ -92,9 +94,15 @@ public class Level {
                 Random rand = new Random();
                 // Generate random integers in range 0 to # of possible options for the ground
                 int randGround = rand.nextInt(groundElements.size());
+                ArrayList<GameObject> tmpGE = new ArrayList<GameObject>(groundElements);
+                while(Math.abs(tmpGE.get(randGround).getPriority() - priority) > 1){
+                    tmpGE.remove(randGround);
+                    randGround = rand.nextInt(tmpGE.size());
+                }
+                priority = groundElements.get(randGround).getPriority();
                 GameObject tempGround = new GameObject(groundElements.get(randGround).getBitmap(),
                         tempX, screenHeight - groundElements.get(randGround).getHeight(), 1, 2,
-                        groundElements.get(randGround).getHealth() , groundElements.get(randGround).getPower());
+                        groundElements.get(randGround).getHealth() , groundElements.get(randGround).getPower(), groundElements.get(randGround).getPriority());
                 tempGround.changeVelocityy(0);
                 groundElementsRepeat.add(tempGround);
                 tempX += tempGround.getWidth();
@@ -157,6 +165,14 @@ public class Level {
         boolean topY = false;
         boolean bottomY = false;
 
+        ArrayList<Pair> bottom = new ArrayList<>();
+        for(int i = player.getHeight() - 10; i < player.getHeight(); i++){
+            for(int j = 0; j < player.getWidth(); j++){
+                Pair<Integer, Integer> tmp = new Pair<Integer, Integer>(j,i);
+                bottom.add(tmp);
+            }
+        }
+
         // Checking leftX (Behind)
         if(player.getX() <= 10){
             leftX = true;
@@ -170,6 +186,9 @@ public class Level {
         // Ground
         for(GameObject eachGround : groundElementsRepeat){
             // Below
+            for(int i = 0; i < 5; i++){
+                
+            }
             if(player.getY() + player.getHeight() - 15 >= eachGround.getY() && player.getX() >= eachGround.getX() - (player.getWidth() / 2)
                     && player.getX() + player.getWidth() <= eachGround.getX() + eachGround.getWidth() + (player.getWidth() / 2)){
                 bottomY = true;
@@ -181,9 +200,9 @@ public class Level {
                 leftX = true;
             }
             // In front of you
-            if(player.getX() + player.getWidth() >= eachGround.getX()
-                    && player.getX() >= eachGround.getX() - player.getWidth() && player.getY() + player.getHeight() - 40 >= eachGround.getY()){
-                rightX= true;
+            if(player.getX() + player.getWidth() >= eachGround.getX() && player.getX() < eachGround.getX() &&
+                    player.getY() + (player.getHeight() / 2) < eachGround.getY()){
+                rightX = true;
             }
         }
 

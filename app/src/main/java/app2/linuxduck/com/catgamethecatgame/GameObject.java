@@ -32,8 +32,9 @@ public class GameObject {
 
     private int health;
     private int power;
+    private int priority;
 
-    public GameObject(Bitmap newBitmap, int newX, int newY, int newCol, int newRow, int newHealth, int newPower){
+    public GameObject(Bitmap newBitmap, int newX, int newY, int newCol, int newRow, int newHealth, int newPower, int newPriority){
         bitmap = newBitmap;
         x = newX;
         y = newY;
@@ -52,6 +53,13 @@ public class GameObject {
         VELOCITYY = 2;
         GRAVITY = .5f;
         speed = 15;
+
+        // Priority is the rule for usage in a randomly generated level.
+        // 0 = place whenever
+        // 1 = You cannot place 2 side by side but it doesn't matter where
+        // 2 on up is height. You can have as many side by side as you want and any n can have (n - 1) and (n + 1)
+        // near it at any time but nothing bigger than 1 on either side
+        priority = newPriority;
 
         for(int i = 0; i < col; i++){
             rightToLefts[i] = createSubImageAt(movingRighttoLeft, i);
@@ -157,4 +165,5 @@ public class GameObject {
     public long getJumpEnd(){return jumpEnd;}
     public void changeJumpEnd(long newEnd){jumpEnd = newEnd;}
     public Bitmap getBitmap(){return bitmap;}
+    public int getPriority(){return priority;}
 }
